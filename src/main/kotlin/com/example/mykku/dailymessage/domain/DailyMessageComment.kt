@@ -1,6 +1,6 @@
 package com.example.mykku.dailymessage.domain
 
-import com.example.mykku.common.BaseEntity
+import com.example.mykku.common.domain.BaseEntity
 import com.example.mykku.member.domain.Member
 import jakarta.persistence.*
 
@@ -8,7 +8,7 @@ import jakarta.persistence.*
 class DailyMessageComment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    val id: Long = 0,
 
     @Column(name = "content", nullable = false)
     var content: String,

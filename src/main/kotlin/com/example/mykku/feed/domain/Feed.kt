@@ -1,7 +1,7 @@
 package com.example.mykku.feed.domain
 
 import com.example.mykku.board.domain.Board
-import com.example.mykku.common.BaseEntity
+import com.example.mykku.common.domain.BaseEntity
 import com.example.mykku.member.domain.Member
 import jakarta.persistence.*
 
@@ -9,7 +9,7 @@ import jakarta.persistence.*
 class Feed(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    val id: Long = 0,
 
     @Column(name = "title", nullable = false)
     var title: String,
@@ -32,12 +32,15 @@ class Feed(
     val member: Member,
 
     @OneToMany(mappedBy = "feed", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
-    var feedImages: MutableList<FeedImage> = mutableListOf(),
+    @JoinColumn(name = "feed_image_id")
+    val feedImages: MutableList<FeedImage> = mutableListOf(),
 
     @OneToMany(mappedBy = "feed", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
-    var feedComments: MutableList<FeedComment> = mutableListOf(),
+    @JoinColumn(name = "feed_comment_id")
+    val feedComments: MutableList<FeedComment> = mutableListOf(),
 
     @OneToMany(mappedBy = "feed", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
-    var feedTags: MutableList<FeedTag> = mutableListOf(),
+    @JoinColumn(name = "feed_tag_id")
+    val feedTags: MutableList<FeedTag> = mutableListOf(),
 ) : BaseEntity() {
 }

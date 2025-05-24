@@ -1,6 +1,6 @@
 package com.example.mykku.board.domain
 
-import com.example.mykku.common.BaseEntity
+import com.example.mykku.common.domain.BaseEntity
 import com.example.mykku.feed.domain.Feed
 import jakarta.persistence.*
 
@@ -8,12 +8,13 @@ import jakarta.persistence.*
 class Board(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    val id: Long = 0,
 
     @Column(name = "title", nullable = false)
     var title: String,
 
     @OneToMany(mappedBy = "board", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
-    var feeds: MutableList<Feed> = mutableListOf(),
+    @JoinColumn(name = "feed_id")
+    val feeds: MutableList<Feed> = mutableListOf(),
 ) : BaseEntity() {
 }
